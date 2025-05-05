@@ -1,4 +1,11 @@
-// main.cpp
+/*
+Problem: 1094 increasing_array
+Platform: cses
+Contest/Difficulty: introductory_problems
+URL: TODO_ADD_URL
+Memory Limit: TODO_MB
+Time Limit: TODO_ms
+*/
 
 #include <algorithm>  // sort, binary_search, lower_bound, upper_bound, shuffle
 #include <bitset>     // bitset - for binary data
@@ -76,20 +83,21 @@ long long int powmod(long long int a, long long int b) {
 }
 int solve(void) {
 
-    // void solve() {
-    //     int n;
-    //     cin >> n;
-    //     vi nums(n);
-    //     readVec(nums, n);
-    //
-    //     sort(ALL(nums));
-    //     cout << nums.back() - nums.front() << endl;
-    // }
     int n;
     if (!(cin >> n)) {
         return EXIT_FAILURE;
     }
-    cout << n << '\n';
+    vector<unsigned long long> nums(n);
+    readVec(nums, n);
+    unsigned long long counter = 0;
+    size_t i;
+    for (i = 1; i < nums.size(); i++) {
+        if (nums[i] < nums[i - 1]) {
+            counter += nums[i - 1] - nums[i];
+            nums[i] += nums[i - 1] - nums[i];
+        }
+    }
+    cout << counter << '\n';
     return EXIT_SUCCESS;
 }
 

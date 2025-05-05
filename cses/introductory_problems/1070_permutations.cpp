@@ -1,4 +1,11 @@
-// main.cpp
+/*
+Problem: 1070 permutations
+Platform: cses
+Contest/Difficulty: introductory_problems
+URL: TODO_ADD_URL
+Memory Limit: TODO_MB
+Time Limit: TODO_ms
+*/
 
 #include <algorithm>  // sort, binary_search, lower_bound, upper_bound, shuffle
 #include <bitset>     // bitset - for binary data
@@ -76,20 +83,37 @@ long long int powmod(long long int a, long long int b) {
 }
 int solve(void) {
 
-    // void solve() {
-    //     int n;
-    //     cin >> n;
-    //     vi nums(n);
-    //     readVec(nums, n);
-    //
-    //     sort(ALL(nums));
-    //     cout << nums.back() - nums.front() << endl;
-    // }
-    int n;
+    unsigned long long n;
     if (!(cin >> n)) {
         return EXIT_FAILURE;
     }
-    cout << n << '\n';
+    // 2,3 -> NO SOLUTION
+    if (n == 1) {
+        cout << 1 << '\n';
+        return EXIT_SUCCESS;
+    }
+    if (n < 4 && n > 1) {
+        cout << "NO SOLUTION" << '\n';
+        return EXIT_SUCCESS;
+    }
+    // 4 -> 2,4,1,3
+    // 5 -> 4,2,5,1,3
+    // 6 -> 4,2,6,1,3,5
+    // even on left and odd on right
+
+    size_t i;
+    for (i = n - 1; i > 0; i--) {
+        if (i % 2 == 0) {
+            cout << i << " ";
+        }
+    }
+    cout << n;
+    for (i = 1; i < n; i++) {
+        if (i % 2 != 0) {
+            cout << " " << i;
+        }
+    }
+    cout << '\n';
     return EXIT_SUCCESS;
 }
 
@@ -113,7 +137,6 @@ int main(void) {
         if (solve()) {
             break;
         }
-        cout << "##########################" << endl;
     }
 
     cerr << endl
