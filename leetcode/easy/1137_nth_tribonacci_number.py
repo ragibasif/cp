@@ -6,14 +6,13 @@ URL: https://leetcode.com/problems/n-th-tribonacci-number/
 Topics: Math, Dynamic Programming, Memoization
 """
 
+# Recursion + Memoization / Top Down
 
-class Solution:
 
-    # Recursion + Memoization / Top Down
-
+class Solution1:
     hashmap = dict()
 
-    def top_down_tribonacci(self, n: int) -> int:
+    def tribonacci(self, n: int) -> int:
         if n <= 0:
             return 0
         elif n == 1 or n == 2:
@@ -21,15 +20,18 @@ class Solution:
         else:
             if n not in self.hashmap:
                 self.hashmap[n] = (
-                    self.top_down_tribonacci(n - 1)
-                    + self.top_down_tribonacci(n - 2)
-                    + self.top_down_tribonacci(n - 3)
+                    self.tribonacci(n - 1)
+                    + self.tribonacci(n - 2)
+                    + self.tribonacci(n - 3)
                 )
         return self.hashmap[n]
 
-    # Tabulation / Bottom Up
 
-    def bottom_up_tribonacci(self, n: int) -> int:
+# Tabulation / Bottom Up
+
+
+class Solution2:
+    def tribonacci(self, n: int) -> int:
         one = 0
         two = three = 1
 
