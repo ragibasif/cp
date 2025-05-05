@@ -11,5 +11,5 @@
 
 ./new.sh usaco 2015 bronze dec_p1 cpp
 
-./new.sh codeforces 1823A 1800-1999 Characteristic cpp
+./new.sh codeforces 1823A 1800 Characteristic cpp
 ```

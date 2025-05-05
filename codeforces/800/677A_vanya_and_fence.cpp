@@ -1,30 +1,7 @@
-#!/bin/bash
-
-set -o posix
-set -Ceuvx
-
-# Usage: ./new.sh [platform] [problem_id] [difficulty/contest] [problem_name] [language]
-
-PLATFORM=$1        # e.g., "codeforces", "leetcode"
-PROBLEM_ID=$2      # e.g., "1823A", "two_sum"
-CONTEST_OR_DIFF=$3 # e.g., "1800-1999" (CF) or "easy" (LeetCode)
-PROBLEM_NAME=$4    # e.g., "A-characteristic" (optional)
-LANGUAGE=$5        # e.g., "py" or "cpp" (programming language)
-
-# Define paths
-PLATFORM_DIR="./${PLATFORM}"
-CATEGORY_DIR="${PLATFORM_DIR}/${CONTEST_OR_DIFF}"
-FILE_PATH="${CATEGORY_DIR}/${PROBLEM_ID}_${PROBLEM_NAME}.${LANGUAGE}"
-
-# Create directory if it doesn't exist
-mkdir -p "$CATEGORY_DIR"
-
-# Generate file with template and metadata
-cat >"$FILE_PATH" <<EOF
 /*
-Problem: ${PROBLEM_ID} ${PROBLEM_NAME}
-Platform: ${PLATFORM}
-Contest/Difficulty: ${CONTEST_OR_DIFF}
+Problem: 677A vanya_and_fence
+Platform: codeforces
+Contest/Difficulty: 800
 URL: TODO_ADD_URL
 Memory Limit: TODO_MB
 Time Limit: TODO_ms
@@ -37,7 +14,8 @@ Time Limit: TODO_ms
 #include <climits>   // INT_MAX, INT_MIN
 #include <cmath>     // sqrt, pow, abs
 #include <cstdint>   // int64_t, uint64_t, etc. - fixed-width integer types
-//#include <dbg.h> //dbg(…) macro that can be used in place of printf or cout
+// #include <dbg.h>      //dbg(…) macro that can be used in place of printf or
+// cout
 #include <functional> // greater, less - function objects and operations
 #include <iostream>   // cout, cin, endl - Input/Output
 #include <iterator>   // iterators and related items
@@ -192,16 +170,20 @@ template <typename Iterator> void printRange(Iterator begin, Iterator end) {
 
 int solve(void) {
 
-    int n;
+    int n, k;
     if (!(cin >> n)) {
         return EXIT_FAILURE;
     }
-    vector<int> nums(n);
-    readVector(nums, n);
-    sort(nums.begin(), nums.end());
-    cout << nums.back() - nums.front() << endl;
-    printVector(nums);
-    cout << n << '\n';
+    cin >> k;
+    int counter = 0;
+    for (int i = 0; i < n; i++) {
+        int temp;
+        cin >> temp;
+        if (temp > k)
+            counter++;
+        counter++;
+    }
+    cout << counter << '\n';
     return EXIT_SUCCESS;
 }
 
@@ -218,8 +200,8 @@ int main(void) {
 #endif // USACO
 
     int t;
-    // t = 1;
-    cin >> t; // Uncomment for multiple test cases
+    t = 1;
+    // cin >> t; // Uncomment for multiple test cases
     for (int i = 0; i < t; i++) {
         if (solve()) {
             break;
@@ -231,8 +213,3 @@ int main(void) {
 
     return EXIT_SUCCESS;
 }
-EOF
-
-echo "Created: ${FILE_PATH}"
-
-exit 0
