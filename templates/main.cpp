@@ -1,40 +1,3 @@
-#!/bin/bash
-
-set -o posix
-set -Ceuvx
-
-# set -n # debugging
-
-# Usage: ./new.sh [platform] [problem_id] [difficulty/contest] [problem_name] [language]
-
-PLATFORM=$1        # e.g., "codeforces", "leetcode"
-PROBLEM_ID=$2      # e.g., "1823A", "two_sum"
-CONTEST_OR_DIFF=$3 # e.g., "1800-1999" (CF) or "easy" (LeetCode)
-PROBLEM_NAME=$4    # e.g., "characteristic" (optional)
-LANGUAGE=$5        # e.g., "py" or "cpp" (programming language)
-
-# Define paths
-PLATFORM_DIR="./${PLATFORM}"
-CATEGORY_DIR="${PLATFORM_DIR}/${CONTEST_OR_DIFF}"
-FILE_PATH="${CATEGORY_DIR}/${PROBLEM_ID}_${PROBLEM_NAME}.${LANGUAGE}"
-
-# Create directory if it doesn't exist
-mkdir -p "$CATEGORY_DIR"
-
-# Generate file with template and metadata
-if [[ "$LANGUAGE" == "py" ]]; then
-    cat >"$FILE_PATH" <<EOF
-"""
-Problem: ${PROBLEM_ID} ${PROBLEM_NAME}
-Platform: ${PLATFORM}
-Contest/Difficulty: ${CONTEST_OR_DIFF}
-URL: TODO_ADD_URL
-Topics: TODO_ADD_TOPICS
-"""
-EOF
-else
-
-    cat >"$FILE_PATH" <<EOF
 /*
 Problem: ${PROBLEM_ID} ${PROBLEM_NAME}
 Platform: ${PLATFORM}
@@ -43,13 +6,13 @@ URL: TODO_ADD_URL
 Topics: TODO_ADD_TOPICS
 */
 
-#include <algorithm> // sort, binary_search, lower_bound, upper_bound, shuffle
-#include <bitset>    // bitset - for binary data
-#include <cassert>   // assert - for debugging
-#include <chrono>    // chrono::steady_clock, chrono::system_clock
-#include <climits>   // INT_MAX, INT_MIN
-#include <cmath>     // sqrt, pow, abs
-#include <cstdint>   // int64_t, uint64_t, etc. - fixed-width integer types
+#include <algorithm>  // sort, binary_search, lower_bound, upper_bound, shuffle
+#include <bitset>     // bitset - for binary data
+#include <cassert>    // assert - for debugging
+#include <chrono>     // chrono::steady_clock, chrono::system_clock
+#include <climits>    // INT_MAX, INT_MIN
+#include <cmath>      // sqrt, pow, abs
+#include <cstdint>    // int64_t, uint64_t, etc. - fixed-width integer types
 #include <functional> // greater, less - function objects and operations
 #include <iostream>   // cout, cin, endl - Input/Output
 #include <iterator>   // iterators and related items
@@ -74,7 +37,6 @@ Topics: TODO_ADD_TOPICS
 //
 // #include <dbg.h>
 
-
 using namespace std;
 
 // Macros
@@ -84,13 +46,13 @@ using namespace std;
     cout.tie(NULL);
 
 #define USACO_IO(s)                                                            \
-do {                                                                       \
+    do {                                                                       \
         freopen((s + ".in").c_str(), "r", stdin);                              \
         freopen((s + ".out").c_str(), "w", stdout);                            \
     } while (0)
 
 #define LOCAL_IO                                                               \
-do {                                                                       \
+    do {                                                                       \
         freopen("input.txt", "r", stdin);                                      \
         freopen("output.txt", "w", stdout);                                    \
     } while (0)
@@ -112,7 +74,7 @@ template <typename T> void readVector(vector<T> &v, int n) {
     v.resize(n);
     for (auto &x : v)
         cin >> x;
-    }
+}
 
 template <typename K, typename V>
 void printUnorderedMap(const unordered_map<K, V> &umap) {
@@ -239,22 +201,16 @@ int main(void) {
 #endif // USACO
 
     int t;
-    // t = 1;
-    cin >> t; // Uncomment for multiple test cases
+    t = 1;
+    // cin >> t; // Uncomment for multiple test cases
     for (int i = 0; i < t; i++) {
         if (solve()) {
             break;
         }
-}
+    }
 
     cerr << endl
          << "Finished in " << clock() * 1.0 / CLOCKS_PER_SEC << " sec" << endl;
 
     return EXIT_SUCCESS;
 }
-EOF
-fi
-
-echo "Created: ${FILE_PATH}"
-
-exit 0
